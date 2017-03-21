@@ -11,11 +11,7 @@ Masyvo spausdinimas is flasho (auto 0x0A, pridejau bibliotekoj): dbg_print_array
 Masyvo irasymas i flash: const char testt[] PROGMEM = {0x55, 0x56};
 HW uart spausdinimas (0x0A pridejau bibliotekoj): uart_puts("Veikia?????");
 Duomenu priemimas is hw uarto: rec_data = uart_getc();
-
-
-
 */
-
 
 #define FW_VER "0.1"
 
@@ -87,15 +83,6 @@ void wdt_delay(int miliseconds)
 	
 }
 
-/*
-void alarm()
-{
-	dbg_uart_puts("Alarn func");
-	send_sms(my_number, "Sistema suveike.");
-	wdt_delay(10000); // tikrinimas
-}
-
-*/
 
 int main(void)
 {	
@@ -139,16 +126,30 @@ int main(void)
 	pin_cfg();	
 		
 	// Sleep.
+	#ifdef DEBUG_MODE
+	dbg_puts("Sleep config started.\r\n");
+	#endif
 	
 	set_sleep_mode(SLEEP_MODE_PWR_DOWN);
 
 	while (1)
-	{
-			for(;;)
-			{
-				//
-			}			
+	{			
+		#ifdef DEBUG_MODE
+			unsigned int f1;			
+			char str[16];
+			f1 = get_vbat_voltage();
+			itoa(f1, str, 10);
+			dbg_puts(str);
+		#endif	
 			
+			//dbg_puti(get_vbat_voltage());
+			
+			
+			
+			
+			
+			
+					
 			sleep_enable();
 			sleep_cpu();			
 			sleep_disable();

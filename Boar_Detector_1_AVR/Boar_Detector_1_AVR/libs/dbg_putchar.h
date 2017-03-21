@@ -55,6 +55,7 @@ extern void dbg_putchar(uint8_t c);
 extern void dbg_print_array(const char* arr, char size);
 extern void dbg_print_char(const char n);
 extern void dbg_puts(const char *s );
+extern void dbg_puti(unsigned int f1);
 //New Line END
 
 #else

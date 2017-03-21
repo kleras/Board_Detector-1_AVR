@@ -60,11 +60,9 @@ unsigned int get_vbat_voltage()
 	ADCSRA  |= (1<<ADSC);
 	while (ADCSRA & (1<<ADSC)); // ADSC will read as one as long as a conversion is in progress. When the conversion is complete, it returns to zero.
 	
-	ADCSRA &= ~(1 << ADEN); // ADC disable.
+	ADCSRA &= ~(1 << ADEN); // ADC disable.	
 	
-	
-	return ADCW;		
-	
+	return ADCW;			
 }
 
 
