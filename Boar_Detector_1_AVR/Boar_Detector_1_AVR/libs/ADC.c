@@ -62,6 +62,8 @@ unsigned int get_vbat_voltage()
 	
 	ADCSRA &= ~(1 << ADEN); // ADC disable.	
 	
+	
+	
 	return ADCW;			
 }
 

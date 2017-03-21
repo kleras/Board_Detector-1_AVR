@@ -84,9 +84,10 @@ void pin_cfg()
 	
 	on(RING_INT1_PORT_R,RING_INT1_PIN); // INT0 Pull-Up enable.
 	on(EICRA, ISC11);     // The falling edge of INT1 generates an interrupt request.
+	#warning Maybe INT1 on low level?
 	
 	on(EIMSK, INT0); // INT0 external interrupt enable.
-	on(EIMSK, INT1); // INT1 external interrupt enable.
+	on(EIMSK, INT1); // INT1 external interrupt enable. 
 	
 	// Inputs
 	

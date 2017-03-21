@@ -18,8 +18,7 @@ void modem_init()
 void majak(char number)
 {
 			dbg_uart_puts("Starting to call!\r\n");
-			_delay_ms(500);
-			
+			_delay_ms(500);		
 			
 			
 			dbg_uart_puts("ATD+37061217788;\r\n");

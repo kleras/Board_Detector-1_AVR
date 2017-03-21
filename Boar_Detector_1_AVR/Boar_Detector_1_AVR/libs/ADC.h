@@ -10,7 +10,10 @@
 #define ADC_H_
 
 
+extern unsigned char global_bat_voltage_status;
 extern int get_vbat_voltage();
+
+
 
 
 

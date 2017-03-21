@@ -65,23 +65,7 @@ Duomenu priemimas is hw uarto: rec_data = uart_getc();
 const char my_number[] PROGMEM = "+37061217788";
 
 
-void wdt_delay(int miliseconds)
-{
-	
-	int delay_step = 200;
-	int step_count = miliseconds / delay_step ;
-	
-	dbg_uart_puts("Delaying\r\n");
-	
-	for (int i = 0; i< step_count ;i++)
-	{
-		wdt_reset();
-		_delay_ms(delay_step);
-		wdt_reset();
-		
-	}	
-	
-}
+
 
 
 int main(void)
@@ -109,7 +93,7 @@ int main(void)
 	dbg_puts("Debug Put Char up and working!\r\n");
 	#endif
 	
-	uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) ); // HW uart init
+	uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) ); // HW uart init, KAM uartas dabar?
 	
 	#ifdef DEBUG_MODE
 	sei();
@@ -145,7 +129,7 @@ int main(void)
 			//dbg_puti(get_vbat_voltage());
 			
 			
-			
+		
 			
 			
 			
@@ -161,11 +145,29 @@ int main(void)
 
 ISR(INT0_vect)
 {
-	//
+	// Vibration sensor.
 }
 
 
 ISR(INT1_vect)
 {
-	//
+	// Ring indication.
+}
+
+void wdt_delay(int miliseconds)
+{
+	
+	int delay_step = 200;
+	int step_count = miliseconds / delay_step ;
+	
+	dbg_uart_puts("Delaying\r\n");
+	
+	for (int i = 0; i< step_count ;i++)
+	{
+		wdt_reset();
+		_delay_ms(delay_step);
+		wdt_reset();
+		
+	}
+	
 }
