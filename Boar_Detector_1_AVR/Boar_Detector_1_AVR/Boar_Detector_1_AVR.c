@@ -142,13 +142,13 @@ int main(void)
 			if(wait_for_movement(10))
 			{
 				
-				EIMSK &= ~(1 << INT0);
+				GICR &= ~(1 << INT0);
 				
 				//PORTB |= (1<<PB0);
 				// Event - SMS
 				_delay_ms(2000);
 				
-				EIMSK |= (1<<INT0);
+				GICR |= (1<<INT0);
 				
 			}			
 			
