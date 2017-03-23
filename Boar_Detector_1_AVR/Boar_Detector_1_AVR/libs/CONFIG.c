@@ -7,6 +7,7 @@
 
 
 #include <avr/io.h>
+#include <avr/wdt.h>
 
 
 //*** MISQ ****
@@ -111,4 +112,36 @@ void int_init()
 	
 	on(EIMSK, INT0); // INT0 external interrupt enable.
 	on(EIMSK, INT1); // INT1 external interrupt enable.
+}
+
+void int0_off()
+{
+	off(EIMSK, INT0);
+}
+
+void int0_on()
+{
+	on(EIMSK, INT0);
+}
+
+void standart_init()
+{
+		
+	// WDT init.
+	wdt_enable(WDTO_8S); // Let's try 8s wdt.
+	#warning Clearing the watchdog reset flag before disabling the watchdog is required, according to the datasheet.
+	#warning wdt_reset needs cli instructions before execution.
+	wdt_reset();	
+	
+	// Interrupts
+	
+	#warning INT0 turi buti and LOW level.
+	
+	on(VIBR_INT0_PORT_R,VIBR_INT0_PIN); // INT0 Pull-Up enable.
+	on(EICRA, ISC01);     // The falling edge of INT0 generates an interrupt request.
+		
+	on(EIMSK, INT0); // INT0 external interrupt enable.
+	
+	timer0_init();
+	
 }

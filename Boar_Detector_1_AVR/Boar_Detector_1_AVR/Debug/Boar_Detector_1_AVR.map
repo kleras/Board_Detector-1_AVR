@@ -46,6 +46,13 @@ Discarded input sections
  .data          0x00000000        0x0 libs/CONFIG.o
  .bss           0x00000000        0x0 libs/CONFIG.o
  .text.pin_cfg  0x00000000        0xa libs/CONFIG.o
+ .text.timer0_init
+                0x00000000        0x2 libs/CONFIG.o
+ .text.int_init
+                0x00000000       0x1a libs/CONFIG.o
+ .text.int0_off
+                0x00000000        0x4 libs/CONFIG.o
+ .text.int0_on  0x00000000        0x4 libs/CONFIG.o
  .text          0x00000000        0x0 libs/SIM900A.o
  .data          0x00000000        0x0 libs/SIM900A.o
  .bss           0x00000000        0x0 libs/SIM900A.o
@@ -303,7 +310,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x42e
+.text           0x00000000      0x420
  *(.vectors)
  .vectors       0x00000000       0x68 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.106/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -395,50 +402,47 @@ END GROUP
  .text.wait_for_movement
                 0x00000106       0x2a Boar_Detector_1_AVR.o
                 0x00000106                wait_for_movement
- .text.main     0x00000130       0xee Boar_Detector_1_AVR.o
+ .text.main     0x00000130       0xd6 Boar_Detector_1_AVR.o
                 0x00000130                main
  .text.get_vbat_voltage
-                0x0000021e       0x3a libs/ADC.o
-                0x0000021e                get_vbat_voltage
+                0x00000206       0x3a libs/ADC.o
+                0x00000206                get_vbat_voltage
  .text.dbg_putchar
-                0x00000258       0x36 libs/dbg_putchar.o
-                0x00000258                dbg_putchar
+                0x00000240       0x36 libs/dbg_putchar.o
+                0x00000240                dbg_putchar
  .text.dbg_puts
-                0x0000028e       0x1e libs/dbg_putchar.o
-                0x0000028e                dbg_puts
- .text.timer0_init
-                0x000002ac        0x2 libs/CONFIG.o
-                0x000002ac                timer0_init
- .text.int_init
-                0x000002ae       0x1a libs/CONFIG.o
-                0x000002ae                int_init
+                0x00000276       0x1e libs/dbg_putchar.o
+                0x00000276                dbg_puts
+ .text.standart_init
+                0x00000294       0x26 libs/CONFIG.o
+                0x00000294                standart_init
  .text.__vector_18
-                0x000002c8       0x5c libs/uart.o
-                0x000002c8                __vector_18
+                0x000002ba       0x5c libs/uart.o
+                0x000002ba                __vector_18
  .text.__vector_19
-                0x00000324       0x54 libs/uart.o
-                0x00000324                __vector_19
+                0x00000316       0x54 libs/uart.o
+                0x00000316                __vector_19
  .text.uart_putc
-                0x00000378       0x2a libs/uart.o
-                0x00000378                uart_putc
+                0x0000036a       0x2a libs/uart.o
+                0x0000036a                uart_putc
  .text.dbg_uart_puts
-                0x000003a2       0x1e libs/uart.o
-                0x000003a2                dbg_uart_puts
+                0x00000394       0x1e libs/uart.o
+                0x00000394                dbg_uart_puts
  .text.avr-libc
-                0x000003c0       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
-                0x000003c0                __itoa_ncheck
+                0x000003b2       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
+                0x000003b2                __itoa_ncheck
  .text.avr-libc
-                0x000003d6       0x34 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
-                0x000003d6                __utoa_ncheck
-                0x000003d8                __utoa_common
+                0x000003c8       0x34 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+                0x000003c8                __utoa_ncheck
+                0x000003ca                __utoa_common
  .text.avr-libc
-                0x0000040a       0x20 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(strrev.o)
-                0x0000040a                strrev
-                0x0000042a                . = ALIGN (0x2)
+                0x000003fc       0x20 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(strrev.o)
+                0x000003fc                strrev
+                0x0000041c                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000042a        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
-                0x0000042a                _exit
-                0x0000042a                exit
+ .fini9         0x0000041c        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+                0x0000041c                _exit
+                0x0000041c                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -457,11 +461,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000042a        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+ .fini0         0x0000041c        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x0000042e                _etext = .
+                0x00000420                _etext = .
 
-.data           0x00800100       0x82 load address 0x0000042e
+.data           0x00800100       0x82 load address 0x00000420
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -500,8 +504,8 @@ END GROUP
                 0x008001a9       0x20 libs/uart.o
  *(COMMON)
                 0x008001c9                PROVIDE (__bss_end, .)
-                0x0000042e                __data_load_start = LOADADDR (.data)
-                0x000004b0                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000420                __data_load_start = LOADADDR (.data)
+                0x000004a2                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x008001c9        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -576,7 +580,7 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x138
+.debug_aranges  0x00000000      0x150
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x48 Boar_Detector_1_AVR.o
@@ -585,56 +589,56 @@ END GROUP
  .debug_aranges
                 0x00000068       0x40 libs/dbg_putchar.o
  .debug_aranges
-                0x000000a8       0x30 libs/CONFIG.o
+                0x000000a8       0x48 libs/CONFIG.o
  .debug_aranges
-                0x000000d8       0x60 libs/uart.o
+                0x000000f0       0x60 libs/uart.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xd92
+.debug_info     0x00000000      0xdbd
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0x615 Boar_Detector_1_AVR.o
- .debug_info    0x00000615       0x98 libs/ADC.o
- .debug_info    0x000006ad      0x2a2 libs/dbg_putchar.o
- .debug_info    0x0000094f       0xac libs/CONFIG.o
- .debug_info    0x000009fb      0x397 libs/uart.o
+ .debug_info    0x00000000      0x5bf Boar_Detector_1_AVR.o
+ .debug_info    0x000005bf       0x98 libs/ADC.o
+ .debug_info    0x00000657      0x2a2 libs/dbg_putchar.o
+ .debug_info    0x000008f9      0x12d libs/CONFIG.o
+ .debug_info    0x00000a26      0x397 libs/uart.o
 
-.debug_abbrev   0x00000000      0x619
+.debug_abbrev   0x00000000      0x64a
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x2e6 Boar_Detector_1_AVR.o
- .debug_abbrev  0x000002e6       0x51 libs/ADC.o
- .debug_abbrev  0x00000337      0x159 libs/dbg_putchar.o
- .debug_abbrev  0x00000490       0x4f libs/CONFIG.o
- .debug_abbrev  0x000004df      0x13a libs/uart.o
+ .debug_abbrev  0x00000000      0x2c4 Boar_Detector_1_AVR.o
+ .debug_abbrev  0x000002c4       0x51 libs/ADC.o
+ .debug_abbrev  0x00000315      0x159 libs/dbg_putchar.o
+ .debug_abbrev  0x0000046e       0xa2 libs/CONFIG.o
+ .debug_abbrev  0x00000510      0x13a libs/uart.o
 
-.debug_line     0x00000000      0x95e
+.debug_line     0x00000000      0x9b2
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x00000000      0x392 Boar_Detector_1_AVR.o
- .debug_line    0x00000392       0xd1 libs/ADC.o
- .debug_line    0x00000463      0x15d libs/dbg_putchar.o
- .debug_line    0x000005c0       0xff libs/CONFIG.o
- .debug_line    0x000006bf      0x29f libs/uart.o
+ .debug_line    0x00000000      0x320 Boar_Detector_1_AVR.o
+ .debug_line    0x00000320       0xd1 libs/ADC.o
+ .debug_line    0x000003f1      0x15d libs/dbg_putchar.o
+ .debug_line    0x0000054e      0x1c5 libs/CONFIG.o
+ .debug_line    0x00000713      0x29f libs/uart.o
 
-.debug_frame    0x00000000      0x2e4
+.debug_frame    0x00000000      0x314
  *(.debug_frame)
  .debug_frame   0x00000000       0xbc Boar_Detector_1_AVR.o
  .debug_frame   0x000000bc       0x24 libs/ADC.o
  .debug_frame   0x000000e0       0x94 libs/dbg_putchar.o
- .debug_frame   0x00000174       0x44 libs/CONFIG.o
- .debug_frame   0x000001b8      0x12c libs/uart.o
+ .debug_frame   0x00000174       0x74 libs/CONFIG.o
+ .debug_frame   0x000001e8      0x12c libs/uart.o
 
-.debug_str      0x00000000      0x498
+.debug_str      0x00000000      0x4b7
  *(.debug_str)
- .debug_str     0x00000000      0x30a Boar_Detector_1_AVR.o
-                                0x348 (size before relaxing)
- .debug_str     0x0000030a        0xe libs/ADC.o
+ .debug_str     0x00000000      0x2f2 Boar_Detector_1_AVR.o
+                                0x330 (size before relaxing)
+ .debug_str     0x000002f2        0xe libs/ADC.o
                                 0x1e8 (size before relaxing)
- .debug_str     0x00000318       0x6e libs/dbg_putchar.o
+ .debug_str     0x00000300       0x6e libs/dbg_putchar.o
                                 0x24e (size before relaxing)
- .debug_str     0x00000386       0x19 libs/CONFIG.o
-                                0x1e9 (size before relaxing)
- .debug_str     0x0000039f       0xf9 libs/uart.o
+ .debug_str     0x0000036e       0x50 libs/CONFIG.o
+                                0x222 (size before relaxing)
+ .debug_str     0x000003be       0xf9 libs/uart.o
                                 0x2f5 (size before relaxing)
 
 .debug_loc      0x00000000      0x9c7
@@ -661,13 +665,13 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x100
+.debug_ranges   0x00000000      0x118
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x38 Boar_Detector_1_AVR.o
  .debug_ranges  0x00000038       0x10 libs/ADC.o
  .debug_ranges  0x00000048       0x30 libs/dbg_putchar.o
- .debug_ranges  0x00000078       0x20 libs/CONFIG.o
- .debug_ranges  0x00000098       0x68 libs/uart.o
+ .debug_ranges  0x00000078       0x38 libs/CONFIG.o
+ .debug_ranges  0x000000b0       0x68 libs/uart.o
 
 .debug_macro
  *(.debug_macro)

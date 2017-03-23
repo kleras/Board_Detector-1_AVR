@@ -15,6 +15,8 @@
 extern void pin_cfg();
 extern void timer0_init();
 extern void int_init();
-
+extern void int0_off();
+extern void int0_on();
+extern void standart_init();
 
 #endif /* PIN_CONFIG_H_ */

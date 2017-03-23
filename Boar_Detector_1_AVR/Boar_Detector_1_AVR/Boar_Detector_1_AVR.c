@@ -45,13 +45,13 @@ Duomenu priemimas is hw uarto: rec_data = uart_getc();
 #include <avr/io.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <avr/wdt.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h> // Flash masyvams
 #include <avr/sleep.h>
 #include <ADC.h>
 #include <CONFIG.h>
+#include <avr/wdt.h>
 
 //*****SW UART*****
 #ifdef DEBUG_MODE //DBG_PUT CHAR
@@ -77,11 +77,7 @@ int main(void)
 {	
 	_delay_ms(100); // When woken up from sleep.
 	
-	// WDT init.
-	wdt_enable(WDTO_8S); // Let's try 8s wdt.
-	#warning Clearing the watchdog reset flag before disabling the watchdog is required, according to the datasheet.
-	#warning wdt_reset needs cli instructions before execution.
-	wdt_reset();	
+	
 	
 	#ifdef DEBUG_MODE
 	if(bit_is_set(MCUSR, WDRF))
@@ -113,7 +109,9 @@ int main(void)
 	dbg_puts("PIN init started.\r\n");
 	#endif		
 	
-	//pin_cfg(); // Kam pin initas dabar.	
+	//pin_cfg(); // Kam pin initas dabar.
+	
+	standart_init();	// WDT, INT0, TIMER0
 		
 	// Sleep init.		
 	set_sleep_mode(SLEEP_MODE_PWR_DOWN);
@@ -122,8 +120,9 @@ int main(void)
 	dbg_puts("Sleep mode set.\r\n");
 	#endif
 
-	timer0_init();
-	int_init();
+	
+	
+	sei(); // Global interrupt enable.
 
 	while (1)
 	{			
@@ -146,15 +145,14 @@ int main(void)
 				EIMSK &= ~(1 << INT0);
 				
 				//PORTB |= (1<<PB0);
+				// Event - SMS
 				_delay_ms(2000);
 				
 				EIMSK |= (1<<INT0);
 				
-			}
+			}			
 			
-			
-			//PORTB &= ~(1 << PB0);
-			
+			//PORTB &= ~(1 << PB0);				
 		
 			sleep_enable();
 			sleep_cpu();			
