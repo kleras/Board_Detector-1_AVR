@@ -75,9 +75,7 @@ void wdt_delay(int miliseconds);
 
 int main(void)
 {	
-	_delay_ms(100); // When woken up from sleep.
-	
-	
+	_delay_ms(100); // When woken up from sleep.	
 	
 	#ifdef DEBUG_MODE
 	if(bit_is_set(MCUSR, WDRF))
@@ -109,8 +107,6 @@ int main(void)
 	dbg_puts("PIN init started.\r\n");
 	#endif		
 	
-	//pin_cfg(); // Kam pin initas dabar.
-	
 	standart_init();	// WDT, INT0, TIMER0
 		
 	// Sleep init.		
@@ -120,7 +116,7 @@ int main(void)
 	dbg_puts("Sleep mode set.\r\n");
 	#endif
 
-	
+	DDRB |= (1<<PB0); // LED OUTPUT
 	
 	sei(); // Global interrupt enable.
 
@@ -141,10 +137,10 @@ int main(void)
 			
 			if(wait_for_movement(10))
 			{
-				
+			
 				GICR &= ~(1 << INT0);
 				
-				//PORTB |= (1<<PB0);
+				PORTB |= (1<<PB0);
 				// Event - SMS
 				_delay_ms(2000);
 				
@@ -152,7 +148,7 @@ int main(void)
 				
 			}			
 			
-			//PORTB &= ~(1 << PB0);				
+			PORTB &= ~(1 << PB0);				
 		
 			sleep_enable();
 			sleep_cpu();			
@@ -167,6 +163,7 @@ ISR(INT0_vect)
 {
 	// Vibration sensor.
 	mov_det = 1;
+	
 }
 
 
@@ -177,7 +174,7 @@ ISR(INT1_vect)
 }
 
 
-ISR(TIMER0_OVF_vect){	if(TIME_OUT_COUNT>=254)	{		TIME_OUT_COUNT = 0;	}	TIME_OUT_COUNT++;}void wdt_delay(int miliseconds)
+ISR(TIMER0_OVF_vect){		if(TIME_OUT_COUNT>=254)	{		TIME_OUT_COUNT = 0;	}	TIME_OUT_COUNT++;}void wdt_delay(int miliseconds)
 {
 	
 	int delay_step = 200;
@@ -195,4 +192,4 @@ ISR(TIMER0_OVF_vect){	if(TIME_OUT_COUNT>=254)	{		TIME_OUT_COUNT = 0;	}	TIM
 	
 }
 
-char wait_for_movement(unsigned char time_out_val){	char status = 0;	TIME_OUT_COUNT = 0;	TCNT0 = 0; // reset timer.		while(TIME_OUT_COUNT < time_out_val)	{		if(mov_det == 1)		{			TIME_OUT_COUNT = 0;			mov_det = 0;			status = 1;		}	}		return status;}
+char wait_for_movement(unsigned char time_out_val){	char status = 0;	TIME_OUT_COUNT = 0;	TCNT0 = 0; // reset timer.				while(TIME_OUT_COUNT < time_out_val)	{		if(mov_det == 1)		{						TIME_OUT_COUNT = 0;			mov_det = 0;			status = 1;		}	}		return status;}

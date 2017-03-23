@@ -94,7 +94,7 @@ void pin_cfg()
 
 void timer0_init()
 {
-	//TCCR0 |= (1<<CS00) | (1<<CS02); // precaler	//TIMSK |= (1<<TOIE0); //interuupt enable.s
+	TCCR0 |= (1<<CS00) | (1<<CS02); // precaler	TIMSK |= (1<<TOIE0); //interuupt enable.s
 }
 
 void int_init()
@@ -104,7 +104,7 @@ void int_init()
 	#warning INT0 turi buti and LOW level.
 	
 	on(VIBR_INT0_PORT_R,VIBR_INT0_PIN); // INT0 Pull-Up enable.
-	on(MCUCR, ISC01);     // The falling edge of INT0 generates an interrupt request.	
+	//on(MCUCR, ISC01);     // The falling edge of INT0 generates an interrupt request.	
 	
 	on(RING_INT1_PORT_R,RING_INT1_PIN); // INT0 Pull-Up enable.
 	on(MCUCR, ISC11);     // The falling edge of INT1 generates an interrupt request.
@@ -127,19 +127,19 @@ void int0_on()
 
 void standart_init()
 {
-		
+	/*	
 	// WDT init.
 	wdt_enable(WDTO_1S); // Let's try 8s wdt.
 	#warning Clearing the watchdog reset flag before disabling the watchdog is required, according to the datasheet.
 	#warning wdt_reset needs cli instructions before execution.
 	wdt_reset();	
-	
+	*/
 	// Interrupts
 	
 	#warning INT0 turi buti and LOW level.
 	
 	on(VIBR_INT0_PORT_R,VIBR_INT0_PIN); // INT0 Pull-Up enable.
-	on(GICR, ISC01);     // The falling edge of INT0 generates an interrupt request.
+	//on(GICR, ISC01);     // The falling edge of INT0 generates an interrupt request.
 		
 	on(GICR, INT0); // INT0 external interrupt enable.
 	
