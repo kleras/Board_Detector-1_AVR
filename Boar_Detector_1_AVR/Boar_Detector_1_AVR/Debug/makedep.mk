@@ -8,7 +8,7 @@ libs\ADC.c
 
 libs\dbg_putchar.c
 
-libs\PIN_CONFIG.c
+libs\CONFIG.c
 
 libs\SIM900A.c
 

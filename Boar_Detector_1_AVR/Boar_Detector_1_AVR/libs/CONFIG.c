@@ -76,19 +76,7 @@ void pin_cfg()
 	must occur.
 	*/
 	
-	
-	// Interrupts
-	
-	on(VIBR_INT0_PORT_R,VIBR_INT0_PIN); // INT0 Pull-Up enable.
-	on(EICRA, ISC01);     // The falling edge of INT0 generates an interrupt request.
-	
-	on(RING_INT1_PORT_R,RING_INT1_PIN); // INT0 Pull-Up enable.
-	on(EICRA, ISC11);     // The falling edge of INT1 generates an interrupt request.
-	#warning Maybe INT1 on low level?
-	
-	on(EIMSK, INT0); // INT0 external interrupt enable.
-	on(EIMSK, INT1); // INT1 external interrupt enable. 
-	
+		
 	// Inputs
 	
 	on(DIN1_PORT_R,DIN1_PIN); // Pull- UP
@@ -100,4 +88,27 @@ void pin_cfg()
 	on(M_RST_DDR_R,M_RST_PIN);
 	
 	
+}
+
+void timer0_init()
+{
+	//TCCR0 |= (1<<CS00) | (1<<CS02); // precaler	//TIMSK |= (1<<TOIE0); //interuupt enable.s
+}
+
+void int_init()
+{
+	// Interrupts
+	
+	#warning INT0 turi buti and LOW level.
+	
+	on(VIBR_INT0_PORT_R,VIBR_INT0_PIN); // INT0 Pull-Up enable.
+	on(EICRA, ISC01);     // The falling edge of INT0 generates an interrupt request.	
+	
+	on(RING_INT1_PORT_R,RING_INT1_PIN); // INT0 Pull-Up enable.
+	on(EICRA, ISC11);     // The falling edge of INT1 generates an interrupt request.
+	
+	#warning Maybe INT1 on low level?
+	
+	on(EIMSK, INT0); // INT0 external interrupt enable.
+	on(EIMSK, INT1); // INT1 external interrupt enable.
 }

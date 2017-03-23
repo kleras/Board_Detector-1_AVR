@@ -41,7 +41,7 @@ C_SRCS +=  \
 ../Boar_Detector_1_AVR.c \
 ../libs/ADC.c \
 ../libs/dbg_putchar.c \
-../libs/PIN_CONFIG.c \
+../libs/CONFIG.c \
 ../libs/SIM900A.c \
 ../libs/uart.c
 
@@ -56,7 +56,7 @@ OBJS +=  \
 Boar_Detector_1_AVR.o \
 libs/ADC.o \
 libs/dbg_putchar.o \
-libs/PIN_CONFIG.o \
+libs/CONFIG.o \
 libs/SIM900A.o \
 libs/uart.o
 
@@ -64,7 +64,7 @@ OBJS_AS_ARGS +=  \
 Boar_Detector_1_AVR.o \
 libs/ADC.o \
 libs/dbg_putchar.o \
-libs/PIN_CONFIG.o \
+libs/CONFIG.o \
 libs/SIM900A.o \
 libs/uart.o
 
@@ -72,7 +72,7 @@ C_DEPS +=  \
 Boar_Detector_1_AVR.d \
 libs/ADC.d \
 libs/dbg_putchar.d \
-libs/PIN_CONFIG.d \
+libs/CONFIG.d \
 libs/SIM900A.d \
 libs/uart.d
 
@@ -80,7 +80,7 @@ C_DEPS_AS_ARGS +=  \
 Boar_Detector_1_AVR.d \
 libs/ADC.d \
 libs/dbg_putchar.d \
-libs/PIN_CONFIG.d \
+libs/CONFIG.d \
 libs/SIM900A.d \
 libs/uart.d
 

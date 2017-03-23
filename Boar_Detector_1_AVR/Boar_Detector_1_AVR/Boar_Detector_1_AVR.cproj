@@ -140,10 +140,10 @@
     <Compile Include="libs\dbg_putchar.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="libs\PIN_CONFIG.c">
+    <Compile Include="libs\CONFIG.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="libs\PIN_CONFIG.h">
+    <Compile Include="libs\CONFIG.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="libs\SIM900A.c">

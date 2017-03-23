@@ -51,6 +51,7 @@ Duomenu priemimas is hw uarto: rec_data = uart_getc();
 #include <avr/pgmspace.h> // Flash masyvams
 #include <avr/sleep.h>
 #include <ADC.h>
+#include <CONFIG.h>
 
 //*****SW UART*****
 #ifdef DEBUG_MODE //DBG_PUT CHAR
@@ -64,15 +65,19 @@ Duomenu priemimas is hw uarto: rec_data = uart_getc();
 //const char testt[] PROGMEM = {0x4F, 0x4B};
 const char my_number[] PROGMEM = "+37061217788";
 
+volatile char mov_det=0;
+volatile char TIME_OUT_COUNT=0;
 
+// Prototypes
 
-
+char wait_for_movement(unsigned char time_out_val);
+void wdt_delay(int miliseconds);
 
 int main(void)
 {	
 	_delay_ms(100); // When woken up from sleep.
 	
-	// WDT
+	// WDT init.
 	wdt_enable(WDTO_8S); // Let's try 8s wdt.
 	#warning Clearing the watchdog reset flag before disabling the watchdog is required, according to the datasheet.
 	#warning wdt_reset needs cli instructions before execution.
@@ -93,7 +98,7 @@ int main(void)
 	dbg_puts("Debug Put Char up and working!\r\n");
 	#endif
 	
-	uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) ); // HW uart init, KAM uartas dabar?
+	//uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) ); // HW uart init, KAM uartas dabar?
 	
 	#ifdef DEBUG_MODE
 	sei();
@@ -107,14 +112,18 @@ int main(void)
 	#ifdef DEBUG_MODE
 	dbg_puts("PIN init started.\r\n");
 	#endif		
-	pin_cfg();	
-		
-	// Sleep.
-	#ifdef DEBUG_MODE
-	dbg_puts("Sleep config started.\r\n");
-	#endif
 	
+	//pin_cfg(); // Kam pin initas dabar.	
+		
+	// Sleep init.		
 	set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+	
+	#ifdef DEBUG_MODE
+	dbg_puts("Sleep mode set.\r\n");
+	#endif
+
+	timer0_init();
+	int_init();
 
 	while (1)
 	{			
@@ -128,12 +137,25 @@ int main(void)
 			
 			//dbg_puti(get_vbat_voltage());
 			
+			_delay_ms(100);			
+			
+			
+			if(wait_for_movement(10))
+			{
+				
+				EIMSK &= ~(1 << INT0);
+				
+				//PORTB |= (1<<PB0);
+				_delay_ms(2000);
+				
+				EIMSK |= (1<<INT0);
+				
+			}
+			
+			
+			//PORTB &= ~(1 << PB0);
 			
 		
-			
-			
-			
-					
 			sleep_enable();
 			sleep_cpu();			
 			sleep_disable();
@@ -146,15 +168,18 @@ int main(void)
 ISR(INT0_vect)
 {
 	// Vibration sensor.
+	mov_det = 1;
 }
 
 
 ISR(INT1_vect)
 {
 	// Ring indication.
+	// ATA
 }
 
-void wdt_delay(int miliseconds)
+
+ISR(TIMER0_OVF_vect){	if(TIME_OUT_COUNT>=254)	{		TIME_OUT_COUNT = 0;	}	TIME_OUT_COUNT++;}void wdt_delay(int miliseconds)
 {
 	
 	int delay_step = 200;
@@ -171,3 +196,5 @@ void wdt_delay(int miliseconds)
 	}
 	
 }
+
+char wait_for_movement(unsigned char time_out_val){	char status = 0;	TIME_OUT_COUNT = 0;	TCNT0 = 0; // reset timer.		while(TIME_OUT_COUNT < time_out_val)	{		if(mov_det == 1)		{			TIME_OUT_COUNT = 0;			mov_det = 0;			status = 1;		}	}		return status;}
