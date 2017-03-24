@@ -42,7 +42,7 @@ C_SRCS +=  \
 ../libs/ADC.c \
 ../libs/dbg_putchar.c \
 ../libs/CONFIG.c \
-../libs/SIM900A.c \
+../libs/sim900.c \
 ../libs/uart.c
 
 
@@ -57,7 +57,7 @@ Boar_Detector_1_AVR.o \
 libs/ADC.o \
 libs/dbg_putchar.o \
 libs/CONFIG.o \
-libs/SIM900A.o \
+libs/sim900.o \
 libs/uart.o
 
 OBJS_AS_ARGS +=  \
@@ -65,7 +65,7 @@ Boar_Detector_1_AVR.o \
 libs/ADC.o \
 libs/dbg_putchar.o \
 libs/CONFIG.o \
-libs/SIM900A.o \
+libs/sim900.o \
 libs/uart.o
 
 C_DEPS +=  \
@@ -73,7 +73,7 @@ Boar_Detector_1_AVR.d \
 libs/ADC.d \
 libs/dbg_putchar.d \
 libs/CONFIG.d \
-libs/SIM900A.d \
+libs/sim900.d \
 libs/uart.d
 
 C_DEPS_AS_ARGS +=  \
@@ -81,7 +81,7 @@ Boar_Detector_1_AVR.d \
 libs/ADC.d \
 libs/dbg_putchar.d \
 libs/CONFIG.d \
-libs/SIM900A.d \
+libs/sim900.d \
 libs/uart.d
 
 OUTPUT_FILE_PATH +=Boar_Detector_1_AVR.elf

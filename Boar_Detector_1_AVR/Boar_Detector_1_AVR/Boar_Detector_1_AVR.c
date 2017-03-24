@@ -39,6 +39,9 @@ Duomenu priemimas is hw uarto: rec_data = uart_getc();
 
 // Timing
 
+
+#define MOVEMENT_TIMEOUT_MIN 1 // Timout movement delays sms
+
 // Include start
 
 //****Standart*****
@@ -52,6 +55,7 @@ Duomenu priemimas is hw uarto: rec_data = uart_getc();
 #include <ADC.h>
 #include <CONFIG.h>
 #include <avr/wdt.h>
+#include <sim900.h>
 
 //*****SW UART*****
 #ifdef DEBUG_MODE //DBG_PUT CHAR
@@ -65,19 +69,23 @@ Duomenu priemimas is hw uarto: rec_data = uart_getc();
 //const char testt[] PROGMEM = {0x4F, 0x4B};
 const char my_number[] PROGMEM = "+37061217788";
 
-volatile char mov_det=0;
-volatile char TIME_OUT_COUNT=0;
+volatile unsigned char mov_det = 0;
+volatile unsigned int TIME_OUT_COUNT = 0;
 
 // Prototypes
 
-char wait_for_movement(unsigned char time_out_val);
+char wait_for_movement(unsigned int time_out_val);
 void wdt_delay(int miliseconds);
+
+
+
 
 int main(void)
 {	
 	_delay_ms(100); // When woken up from sleep.	
 	
 	#ifdef DEBUG_MODE
+	
 	if(bit_is_set(MCUSR, WDRF))
 	{	
 		dbg_puts("Recovery after WDT.\r\n");
@@ -92,7 +100,7 @@ int main(void)
 	dbg_puts("Debug Put Char up and working!\r\n");
 	#endif
 	
-	//uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) ); // HW uart init, KAM uartas dabar?
+	uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) ); // HW uart init, KAM uartas dabar?
 	
 	#ifdef DEBUG_MODE
 	sei();
@@ -104,7 +112,7 @@ int main(void)
 	
 	// PINSETUP:
 	#ifdef DEBUG_MODE
-	dbg_puts("PIN init started.\r\n");
+	dbg_puts("Standart init started.\r\n");
 	#endif		
 	
 	standart_init();	// WDT, INT0, TIMER0
@@ -122,39 +130,92 @@ int main(void)
 
 	while (1)
 	{			
-		#ifdef DEBUG_MODE
+			
+			#ifdef DEBUG_MODE
 			unsigned int f1;			
-			char str[16];
+			char str[4];
 			f1 = get_vbat_voltage();
 			itoa(f1, str, 10);
+			dbg_puts("ADC 10bit value = ");
 			dbg_puts(str);
-		#endif	
-			
-			//dbg_puti(get_vbat_voltage());
-			
-			_delay_ms(100);			
+			dbg_puts("\r\n");
+			#endif	
+		
 			
 			
-			if(wait_for_movement(10))
+			//dbg_puti(get_vbat_voltage());						
+			
+			#ifdef DEBUG_MODE
+			dbg_puts("Monitoring movement.\r\n");
+			#endif
+			
+			
+			
+			if(wait_for_movement(MOVEMENT_TIMEOUT_MIN))//*232)) // 1tick - 258,65ms // unsigned int so till 32k or 2h 20min.. Roughly (1 * 232) is = 1min timout, (2 * 232) = 2min timout.
 			{
-			
-				GICR &= ~(1 << INT0);
+				int0_off();
+				
+				#ifdef DEBUG_MODE
+				dbg_puts("Movement finished.\r\n");
+				#endif				
 				
 				PORTB |= (1<<PB0);
 				// Event - SMS
-				_delay_ms(2000);
+				//_delay_ms(2000);
 				
-				GICR |= (1<<INT0);
+				int0_on();				
+				
+			}
+			
+			else
+			{
+				
+				#ifdef DEBUG_MODE
+				dbg_puts("No movement detected.\r\n");
+				#endif
+				
+			}
+			
+				
+									
+			PORTB &= ~(1 << PB0);
+			
+			
+			
+			#ifdef DEBUG_MODE
+			dbg_puts("Going to sleep.\r\n");
+			#endif	
+			
+			/////////////////
+			
+			
+			int0_off();			
+			uint8_t number[] = "+37061217788";
+			uint8_t sms[] = "SMS test...";
+			
+			
+			sim900_init_uart(4800);
+			sim900_setup(SETUP_WAIT_INFINITE);			
+			
+			if(sim900_is_network_registered())
+			{				
+				sim900_send_sms(number, sms);		
 				
 			}			
 			
-			PORTB &= ~(1 << PB0);				
-		
+			int0_on();			
+
 			sleep_enable();
 			sleep_cpu();			
 			sleep_disable();
+			
 			_delay_ms(100); // When woken-up from sleep.
-					
+			
+			#ifdef DEBUG_MODE
+			dbg_puts("Woke up.\r\n");
+			#endif	
+			
+							
 	}
 }
 
@@ -162,8 +223,9 @@ int main(void)
 ISR(INT0_vect)
 {
 	// Vibration sensor.
-	mov_det = 1;
-	
+	mov_det = 1;	
+	_delay_ms(20);
+		
 }
 
 
@@ -174,7 +236,7 @@ ISR(INT1_vect)
 }
 
 
-ISR(TIMER0_OVF_vect){		if(TIME_OUT_COUNT>=254)	{		TIME_OUT_COUNT = 0;	}	TIME_OUT_COUNT++;}void wdt_delay(int miliseconds)
+ISR(TIMER0_OVF_vect){	if(TIME_OUT_COUNT>=254)	{		TIME_OUT_COUNT = 0;	}	TIME_OUT_COUNT++;		}void wdt_delay(int miliseconds)
 {
 	
 	int delay_step = 200;
@@ -192,4 +254,6 @@ ISR(TIMER0_OVF_vect){		if(TIME_OUT_COUNT>=254)	{		TIME_OUT_COUNT = 0;	}	T
 	
 }
 
-char wait_for_movement(unsigned char time_out_val){	char status = 0;	TIME_OUT_COUNT = 0;	TCNT0 = 0; // reset timer.				while(TIME_OUT_COUNT < time_out_val)	{		if(mov_det == 1)		{						TIME_OUT_COUNT = 0;			mov_det = 0;			status = 1;		}	}		return status;}
+char wait_for_movement(unsigned int time_out_val){	char status = 0;	TIME_OUT_COUNT = 0;	TCNT0 = 0; // reset timer.					while(TIME_OUT_COUNT < time_out_val)	{										if(mov_det == 1)		{			mov_det = 0;			status = 1;			TIME_OUT_COUNT = 0;								#ifdef DEBUG_MODE
+			dbg_puts("Event detected, postponing.\r\n");
+			#endif						}				}				return status;}

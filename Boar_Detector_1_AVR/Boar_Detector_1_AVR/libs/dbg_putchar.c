@@ -13,7 +13,7 @@
 #include <avr/interrupt.h>
 
 #include "dbg_putchar.h"
-#include <avr\pgmspace.h>
+#include <avr/pgmspace.h>
 
 #if DBG_UART_ENABLE
 
@@ -111,13 +111,15 @@ void dbg_puts(const char *s )
 
 	
 }
+/*
 
 void dbg_puti(unsigned int f1)
 {
 	char str[16];
 	itoa(f1, str, 10);
-	dbg_puts(str);	
+	dbg_puts(str);
 }
+*/
 
 #undef DBG_UART_TX_NUM_DELAY_CYCLES
 #undef DBG_UART_TX_NUM_ADD_NOP

@@ -10,7 +10,7 @@ libs\dbg_putchar.c
 
 libs\CONFIG.c
 
-libs\SIM900A.c
+libs\sim900.c
 
 libs\uart.c
 

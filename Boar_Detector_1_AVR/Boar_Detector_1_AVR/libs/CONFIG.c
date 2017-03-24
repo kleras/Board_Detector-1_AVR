@@ -139,8 +139,7 @@ void standart_init()
 	#warning INT0 turi buti and LOW level.
 	
 	on(VIBR_INT0_PORT_R,VIBR_INT0_PIN); // INT0 Pull-Up enable.
-	//on(GICR, ISC01);     // The falling edge of INT0 generates an interrupt request.
-		
+			
 	on(GICR, INT0); // INT0 external interrupt enable.
 	
 	timer0_init();
