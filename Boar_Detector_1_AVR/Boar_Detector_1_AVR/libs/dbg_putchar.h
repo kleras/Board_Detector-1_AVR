@@ -19,7 +19,7 @@
 /* User setting -> Output pin the software UART */
 #define DBG_UART_TX_PORT        PORTB
 #define DBG_UART_TX_DDR         DDRB
-#define DBG_UART_TX_PIN         PB1
+#define DBG_UART_TX_PIN         PB2
 
 
 /* User setting -> Software UART baudrate. */

@@ -19,6 +19,47 @@
 #ifndef SIM900_H_
 #define SIM900_H_
 
+
+// PIN definition
+
+#define PWRKEY_PIN PD5
+#define PWRKEY_DDR_R DDRD //output
+#define PWRKEY_PORT_R PORTD
+
+//on(PWRKEY_DDR_R,PWRKEY_PIN); // Set to output.
+//on(PWRKEY_PORT_R,PWRKEY_PIN); // togle pin
+//off(PWRKEY_PORT_R,PWRKEY_PIN); // togle pin
+
+#define DTR_PIN PD6
+#define DTR_DDR_R DDRD //output
+#define DTR_PORT_R PORTD
+
+//on(DTR_DDR_R,PWRKEY_PIN); // Set to output.
+//on(DTR_PORT_R,PWRKEY_PIN); // togle pin
+//off(DTR_PORT_R,PWRKEY_PIN); // togle pin
+
+#define M_RST_PIN PD7
+#define M_RST_DDR_R DDRD //output
+#define M_RST_PORT_R PORTD
+
+//on(DTR_DDR_R,PWRKEY_PIN); // Set to output.
+//on(DTR_PORT_R,PWRKEY_PIN); // togle pin
+//off(DTR_PORT_R,PWRKEY_PIN); // togle pin
+
+#define RING_INT1_PIN PD3
+#define RING_INT1_PORT_R PORTD
+#define RING_INT1_PIN_R PIND
+
+//on(RING_INT1_PORT_R,RING_INT1);
+
+// Modem timings
+
+#define PWRKEY_PULL_MS 1100 // DS - >1000ms
+#define MODEM_START_MS 3000 // DS - >2200ms
+#define MODEM_PWROFF_MS 2000 // DS - >1700ms
+
+
+
 //lib used
 #include <stddef.h>
 #include <string.h>
@@ -199,6 +240,13 @@ extern uint8_t sim900_http_terminate();
 * @return	uint8_t			0=fail, 1=success
 */
 extern uint8_t sim900_http_send_data(const uint8_t method, const uint8_t *aurl, const uint8_t *adata, const  uint8_t max_out_len, uint8_t *arespon_out);
+
+extern uint8_t modem_power_on();
+extern uint8_t modem_power_off();
+extern uint8_t modem_call_answer();
+extern uint8_t sim900_send_sms_template(const uint8_t *aSenderNumber, uint8_t sms_template);
+
+
 
 /**@}*/
 

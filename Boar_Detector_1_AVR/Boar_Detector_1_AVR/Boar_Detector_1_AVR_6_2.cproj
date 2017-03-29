@@ -5,7 +5,7 @@
     <ProjectVersion>6.2</ProjectVersion>
     <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
     <ProjectGuid>{36c92056-3012-4082-bf47-5952eeaee87f}</ProjectGuid>
-    <avrdevice>ATmega8</avrdevice>
+    <avrdevice>ATmega328P</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
     <OutputType>Executable</OutputType>
     <Language>C</Language>
@@ -107,6 +107,9 @@
     <Compile Include="Boar_Detector_1_AVR.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Boar_Detector_1_AVR.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="libs\ADC.c">
       <SubType>compile</SubType>
     </Compile>
@@ -125,10 +128,10 @@
     <Compile Include="libs\dbg_putchar.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="libs\SIM900A.c">
+    <Compile Include="libs\sim900.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="libs\SIM900A.h">
+    <Compile Include="libs\sim900.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="libs\uart.c">

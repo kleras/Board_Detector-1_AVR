@@ -12,11 +12,14 @@
 #define CONFIG_H_
 
 
+
 extern void pin_cfg();
 extern void timer0_init();
 extern void int_init();
-extern void int0_off();
-extern void int0_on();
+extern void Vibration_detect_int_off();
+extern void Vibration_detect_int_on();
 extern void standart_init();
+extern void Ring_detection_int_on();
+extern void Ring_detection_int_off();
 
 #endif /* PIN_CONFIG_H_ */

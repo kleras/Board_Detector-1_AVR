@@ -197,6 +197,7 @@ extern void uart_print_double(double input);
 extern void uart_dbg_s(const char *s);
 extern void uart_dbg_putin(int integer);
 extern void dbg_uart_puts(const char *s);
+extern void uart_puti(unsigned int f2);
 
 
 #endif // UART_H 

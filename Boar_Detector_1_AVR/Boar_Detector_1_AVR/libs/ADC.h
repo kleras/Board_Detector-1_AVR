@@ -11,7 +11,9 @@
 
 
 extern unsigned char global_bat_voltage_status;
-extern int get_vbat_voltage();
+extern unsigned int get_vbat_voltage_mV();
+extern unsigned int get_temp_mV();
+
 
 
 

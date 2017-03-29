@@ -40,6 +40,7 @@ LICENSE:
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 #include "uart.h"
+#include <stdlib.h>
 
 #define UART_LIB_DEBUG_MODE
 
@@ -533,6 +534,13 @@ void uart_putint(int integer)
 		uart_putc(my_array[3] + 48);
 		//uart_puts("\r\n");
 
+}
+
+void uart_puti(unsigned int f2)
+{
+	char str[16];
+	itoa(f2, str, 10);
+	uart_puts(str);	
 }
 
 

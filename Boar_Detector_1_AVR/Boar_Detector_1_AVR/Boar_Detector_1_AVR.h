@@ -9,7 +9,6 @@
 #ifndef BOAR_DETECTOR_1_AVR_H_
 #define BOAR_DETECTOR_1_AVR_H_
 
-extern unsigned char global_bat_voltage_status;
 
 
 
