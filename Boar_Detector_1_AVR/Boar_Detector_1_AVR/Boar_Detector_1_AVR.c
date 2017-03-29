@@ -100,17 +100,14 @@ uint8_t wait_for_movement_to_finish(unsigned int time_out_val);
 
 int main(void)
 {		
-	
-		_delay_ms(1000);
 		
-		
+		// Tunr on modem if not yet turned on.
 		on(RING_INT1_PORT_R,RING_INT1_PIN);
+		
 		if(bit_is_clear(RING_INT1_PIN_R,RING_INT1_PIN))
 		{
 			modem_power_on();
-		}
-		
-	
+		}	
 		/*	
 		// WDT init.
 		wdt_enable(WDTO_1S); // Let's try 8s wdt.
@@ -127,8 +124,8 @@ int main(void)
 		
 			#ifdef DEBUG_MODE	// Debug Put Char init
 			dbg_tx_init();			
-			#endif	
-	
+			#endif			
+				
 
 	_delay_ms(10);	
 	
