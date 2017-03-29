@@ -11,7 +11,10 @@
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
-
+// To Check ring pin if modem is turned on
+#define RING_INT1_PIN PD3
+#define RING_INT1_PORT_R PORTD
+#define RING_INT1_PIN_R PIND
 
 extern void pin_cfg();
 extern void timer0_init();

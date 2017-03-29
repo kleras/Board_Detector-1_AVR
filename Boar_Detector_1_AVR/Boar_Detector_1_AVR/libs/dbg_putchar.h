@@ -23,7 +23,7 @@
 
 
 /* User setting -> Software UART baudrate. */
-#define DBG_UART_BAUDRATE       4800
+#define DBG_UART_BAUDRATE       38400
 
 
 /* ---- DO NOT TOUCH BELOW THIS LINE ---- */

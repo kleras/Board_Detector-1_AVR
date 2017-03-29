@@ -13,8 +13,6 @@ HW uart spausdinimas (0x0A pridejau bibliotekoj): uart_puts("Veikia?????");
 Duomenu priemimas is hw uarto: rec_data = uart_getc();
 */
 
-#define FW_VER "0.1"
-
 #define F_CPU 8000000UL // CPU clock define (CPU should know what frequency is he on)
 #define MHz F_CPU/1000000
 #define UART_BAUD_RATE 38400 //38400 // HW uart BAud rate defined
@@ -37,11 +35,6 @@ Duomenu priemimas is hw uarto: rec_data = uart_getc();
 #define change(a,z) (a ^=_BV(z))
 #define bit_is_clear(sfr,bit) (!(_SFR_BYTE(sfr) & _BV(bit)))
 #define bit_is_set(sfr, bit)   (_SFR_BYTE(sfr) & _BV(bit))
-
-#define RING_INT1_PIN PD3
-#define RING_INT1_PORT_R PORTD
-#define RING_INT1_PIN_R PIND
-
 
 // Timing
 
