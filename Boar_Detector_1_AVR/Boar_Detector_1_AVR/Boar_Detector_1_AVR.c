@@ -93,13 +93,15 @@ const uint8_t number[] = "+37061217788";
 
 //void wdt_delay(int miliseconds);
 
-uint8_t SEND_TEST_SMS(uint8_t sms_mode);
+uint8_t send_sms_template(uint8_t sms_mode);
 uint8_t check_if_movement_is_legit(unsigned int legit_movement_count, unsigned int time_out_val);
 uint8_t wait_for_movement_to_finish(unsigned int time_out_val);
 
 
 int main(void)
 {		
+		
+		
 		
 		// Tunr on modem if not yet turned on.
 		on(RING_INT1_PORT_R,RING_INT1_PIN);
@@ -108,6 +110,8 @@ int main(void)
 		{
 			modem_power_on();
 		}	
+		
+		
 		/*	
 		// WDT init.
 		wdt_enable(WDTO_1S); // Let's try 8s wdt.
@@ -198,7 +202,7 @@ int main(void)
 				// wake up modem, test at
 				
 				Vibration_detect_int_off();							
-				SEND_TEST_SMS(SMS_MODE_FIRST_FILTER_PASS);	// reik patikrint ar suveike, nes jei ne viskas griuna.
+				send_sms_template(SMS_MODE_FIRST_FILTER_PASS);	// reik patikrint ar suveike, nes jei ne viskas griuna.
 								
 				Ring_detection_int_on();
 				
@@ -228,7 +232,7 @@ int main(void)
 					#endif
 										
 					//SEND_TEST_SMS(); // RIng off going to sleep. Judejimas baigesi.	
-					SEND_TEST_SMS(SMS_MODE_MOVEMENT_FINISHED);	
+					send_sms_template(SMS_MODE_MOVEMENT_FINISHED);	
 					
 					// sleep modem
 				}
@@ -238,7 +242,7 @@ int main(void)
 					#ifdef DEBUG_MODE					
 					dbg_puts("No movement detected in wait function.\r\n");
 					#endif	
-					SEND_TEST_SMS(SMS_MODE_NOT_SUFFICIENT_FIRST_FILTER);									
+					send_sms_template(SMS_MODE_NOT_SUFFICIENT_FIRST_FILTER);									
 					
 				}
 			}
@@ -351,7 +355,7 @@ uint8_t wait_for_movement_to_finish(unsigned int time_out_val){	uint8_t status
 			dbg_puts("\r\n");
 			#endif						Vibration_detect_int_on();					}				if(movement_count > legit_movement_count)		{						#ifdef DEBUG_MODE
 			dbg_puts("Movement is legit, changing status.\r\n");						
-			#endif						return 1;					}		}		return 0;}uint8_t SEND_TEST_SMS(uint8_t sms_mode){			PORTB |= (1<<PB0); // debug led on during gsm task.		#ifdef DEBUG_MODE
+			#endif						return 1;					}		}		return 0;}uint8_t send_sms_template(uint8_t sms_mode){			PORTB |= (1<<PB0); // debug led on during gsm task.		#ifdef DEBUG_MODE
 	wdt_reset();
 	dbg_puts("GSM task...\r\n");
 	#endif

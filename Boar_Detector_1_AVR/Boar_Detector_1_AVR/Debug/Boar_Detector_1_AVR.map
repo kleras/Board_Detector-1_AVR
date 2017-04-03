@@ -565,9 +565,9 @@ END GROUP
  .text.check_if_movement_is_legit
                 0x0000026a       0xc8 Boar_Detector_1_AVR.o
                 0x0000026a                check_if_movement_is_legit
- .text.SEND_TEST_SMS
+ .text.send_sms_template
                 0x00000332       0x92 Boar_Detector_1_AVR.o
-                0x00000332                SEND_TEST_SMS
+                0x00000332                send_sms_template
  .text.main     0x000003c4      0x170 Boar_Detector_1_AVR.o
                 0x000003c4                main
  .text.get_vbat_voltage_mV
@@ -968,19 +968,19 @@ END GROUP
  .debug_frame   0x0000026c      0x258 libs/sim900.o
  .debug_frame   0x000004c4      0x14c libs/uart.o
 
-.debug_str      0x00000000      0x728
+.debug_str      0x00000000      0x71a
  *(.debug_str)
- .debug_str     0x00000000      0x3f7 Boar_Detector_1_AVR.o
-                                0x44e (size before relaxing)
- .debug_str     0x000003f7        0xe libs/ADC.o
+ .debug_str     0x00000000      0x3e9 Boar_Detector_1_AVR.o
+                                0x452 (size before relaxing)
+ .debug_str     0x000003e9        0xe libs/ADC.o
                                 0x1f7 (size before relaxing)
- .debug_str     0x00000405       0x65 libs/dbg_putchar.o
+ .debug_str     0x000003f7       0x65 libs/dbg_putchar.o
                                 0x271 (size before relaxing)
- .debug_str     0x0000046a       0x2e libs/CONFIG.o
+ .debug_str     0x0000045c       0x2e libs/CONFIG.o
                                 0x255 (size before relaxing)
- .debug_str     0x00000498      0x1ad libs/sim900.o
+ .debug_str     0x0000048a      0x1ad libs/sim900.o
                                 0x44d (size before relaxing)
- .debug_str     0x00000645       0xe3 libs/uart.o
+ .debug_str     0x00000637       0xe3 libs/uart.o
                                 0x327 (size before relaxing)
 
 .debug_loc      0x00000000     0x18dc
